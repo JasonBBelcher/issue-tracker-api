@@ -12,7 +12,9 @@ const IssueSchema = new mongoose.Schema({
     type: String
   },
   severity: {
-    type: String
+    type: String,
+    default: 'LOW',
+    enum: ['LOW', 'MEDIUM', 'HIGH']
   },
   status: {
     type: String,
