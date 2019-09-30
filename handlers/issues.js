@@ -1,12 +1,14 @@
 require('../models/db');
-const mongoose = require('mongoose');
+
 const Issue = require('../models/issue');
 
 
-exports.getUserIssues = function(req, res, next) {
+exports.getUserIssues = function (req, res, next) {
   const parsedUser = req.user;
 
-  Issue.find({ 'createdBy._id': parsedUser._id })
+  Issue.find({
+      'createdBy._id': parsedUser._id
+    })
     .then(issues => {
       res.status(200).json(issues);
     })
@@ -19,7 +21,7 @@ exports.getUserIssues = function(req, res, next) {
     });
 };
 
-exports.getUserIssue = function(req, res, next) {
+exports.getUserIssue = function (req, res, next) {
   const parsedUser = req.user;
   Issue.findById(req.params.id)
     .then(issue => {
@@ -38,7 +40,7 @@ exports.getUserIssue = function(req, res, next) {
     });
 };
 
-exports.getIssues = function(req, res, next) {
+exports.getIssues = function (req, res, next) {
   Issue.find({})
     .then(issues => {
       res.status(200).json(issues);
@@ -52,7 +54,7 @@ exports.getIssues = function(req, res, next) {
     });
 };
 
-exports.postIssue = function(req, res, next) {
+exports.postIssue = function (req, res, next) {
   let parsedUser = req.user;
   const issueBody = Object.assign({}, req.body, {
     createdBy: parsedUser
@@ -70,7 +72,7 @@ exports.postIssue = function(req, res, next) {
     });
 };
 
-exports.deleteIssue = function(req, res, next) {
+exports.deleteIssue = function (req, res, next) {
   let parsedUser = req.user;
   Issue.findById(req.params.id)
     .then(issue => {
@@ -90,9 +92,15 @@ exports.deleteIssue = function(req, res, next) {
     });
 };
 
-exports.editIssue = function(req, res, next) {
+exports.editIssue = function (req, res, next) {
   let parsedUser = req.user;
-  const { title, responsible, description, severity, status } = req.body;
+  const {
+    title,
+    responsible,
+    description,
+    severity,
+    status
+  } = req.body;
   Issue.findById(req.params.id)
 
     .exec()

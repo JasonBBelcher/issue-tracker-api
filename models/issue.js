@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ensureCorrectUser = require('../middleware/ensureCorrectUser');
+
 
 const IssueSchema = new mongoose.Schema({
   title: {
